@@ -14,11 +14,13 @@ class PostController extends Controller
     public function __invoke(Request $request)
     {
         $posts = Post::all(); // select * from posts;
-        $postIds = $posts->pluck('id')->all();
+        $postIds = $posts->pluck('id')->all(); // extract all post ids from $posts
         // dd($postIds);
-        $comments = Comment::whereIn('post_id', $postIds)->get();
+        $comments = Comment::whereIn('post_id', $postIds)->get(); // select * from comments where post_id in [?,?,?,?,...]; 
 
-        $posts->every(function ($post, $key) use ($comments) {
+        // map every post with their respective comments
+        $posts->every(function ($post, $key) use ($comments) { 
+            // extract respectie comments and add as an attribute named 'comments'
             return $post->comments = $comments->where('post_id', $post->id);
         });
 
