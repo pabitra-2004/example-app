@@ -11,11 +11,11 @@
 <body>
     <div>
         <ul>
-            @foreach ($posts as $index => $post)
+            @foreach ($posts as $post)
                 <li>
                     {{ $post->content }}
                     <ul>
-                        @foreach ($comments->where('post_id', $post->id) as $c_index => $comment)
+                        @foreach ($post->comments as $comment)
                             <li>{{ $comment->content }}</li>
                         @endforeach
                     </ul>
