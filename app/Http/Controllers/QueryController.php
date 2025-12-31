@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use function Laravel\Prompts\select;
-
 
 class QueryController extends Controller
 {
@@ -48,10 +48,7 @@ class QueryController extends Controller
         //     ->orderBy('total_amount', 'desc')
         //     ->get();
 
-
-        //! single customer per year total order
-
-
+        // ! single customer per year total order
 
         // ? Print the employee's name, email, and office details.
         // $results = DB::table('employees')
@@ -84,7 +81,6 @@ class QueryController extends Controller
         //     ->orderByDesc('total_amount') // 3->50000, 5->20000, 2->100000
         //     ->orderByDesc('purchase_count')
         //     ->get();
-
 
         // ? Fetch products along with their order frequencies.
         // $results = DB::table('products')
@@ -171,23 +167,32 @@ class QueryController extends Controller
         //     ->join('employees AS m_employees', 'e_employees.reportsTo', 'm_employees.employeeNumber')
         //     ->get();
 
-
         // ? Print the count of products by product line.
         // $results = DB::table('products')
         //     ->selectRaw('productLine, COUNT(productLine) AS Count_Product')
         //     ->groupBy('productLine')
         //     ->get();
 
+        // ?
+        $results = DB::table('customers')
+            ->selectRaw('customers.customerNumber, customers.customerName, SUM(payments.amount) AS total_order_amount')
+            ->join('payments', 'payments.customerNumber', 'customers.customerNumber')
+            ->groupBy(' payments.customerNumber')
+            ->orderBy(DB::raw('SUM(payments.amount)'), 'desc')
+            ->limit(1)
+            ->offset(3)
+            ->get();
+
 
         // ? Fetch the count of shipped orders by product line.
-        $results = DB::table('products')
-            ->selectRaw('productLine, COUNT(orderdetails.orderNumber) AS total_order_shipped_by')
-            ->join('orderdetails', 'orderdetails.productCode', 'products.productCode')
-            ->join('orders', 'orders.orderNumber', 'orderdetails.orderNumber')
-            ->where('orders.status', 'Shipped')
-            ->groupBy('productLine')
-            ->orderByDesc('total_order_shipped_by')
-            ->get();
+        // $results = DB::table('products')
+        //     ->selectRaw('productLine, COUNT(orderdetails.orderNumber) AS total_order_shipped_by')
+        //     ->join('orderdetails', 'orderdetails.productCode', 'products.productCode')
+        //     ->join('orders', 'orders.orderNumber', 'orderdetails.orderNumber')
+        //     ->where('orders.status', 'Shipped')
+        //     ->groupBy('productLine')
+        //     ->orderByDesc('total_order_shipped_by')
+        //     ->get();
 
         // dd(DB::getQueryLog());
         // dd($results->dumpRawSql());
@@ -195,5 +200,51 @@ class QueryController extends Controller
         // $results->ddRawSql(); // print raw sql
         // $results->dd();
         return response()->json(['count' => count($results), 'results' => $results], options: JSON_PRETTY_PRINT);
+
+
+
+
+
+                // ? question 1: fetch all attach roles for a specific users
+        // * Method 1
+        // $userId = 5;
+        // $roles = Role::join('role_user', 'roles.id', '=', 'role_user.role_id')
+        //     ->where('role_user.user_id', $userId)
+        //     ->select('roles.id', 'roles.name')
+        //     ->get();
+        // return response()->json(['user' => $userId, 'attach_roles' => $roles], options: JSON_PRETTY_PRINT);
+
+        // * method 2
+        // $user = User::with('roles')->find(5);
+        // $attach_roles = $user->roles->pluck('name', 'id');
+
+        // return response()->json(
+        //     [
+        //         'user_id' => $user->id,
+        //         'user_name' => $user->name,
+        //         'attached_roles' => $attach_roles,
+        //     ],
+        //     options: JSON_PRETTY_PRINT
+        // );
+
+        // ? question 2: fetch first 4 users with their respective roles
+        $users = User::with('roles')->limit(4)->get();
+        // dd($users);
+        $results = $users->map(fn ($user) => [
+            'user_id' => $user->id,
+            'user_name' => $user->name,
+            'roles' => $user->roles->map(fn ($roles) => [
+                'id' => $roles->id,
+                'role_name' => $roles->name,
+            ]),
+        ]);
+        dd($results);
+
+        // return response()->json(
+        //     [
+        //         'result' => $results,
+        //     ],
+        //     options: JSON_PRETTY_PRINT
+        // );
     }
 }
