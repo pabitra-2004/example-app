@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,6 +6,42 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
 }
+
+/* accordion custom style start */
+
+.accordion {
+    @apply p-6 mt-4 border border-gray-300 rounded-lg shadow w-3xl;
+}
+.accordion-item {
+    @apply w-full border-b border-gray-300 border-x first:border-t first:rounded-t-lg last:rounded-b-lg;
+}
+.accordion-item-header {
+    @apply w-full flex justify-between items-center cursor-pointer p-4 transition-all duration-1000 ease-in-out group-[.active]:accordion-item-header-active;
+}
+.accordion-item:first-child.active > .accordion-item-header {
+    @apply rounded-t-lg ring-4 ring-blue-200 ring-offset-1;
+}
+@utility accordion-item-header-active {
+    @apply font-semibold text-blue-700 transition-all duration-300 ease-in-out bg-blue-50 focus:ring-4 focus:ring-blue-200 focus:ring-offset-1;
+}
+
+.accordion-item-header .icon {
+    @apply size-6 transition duration-300 ease-in-out group-[.active]:-rotate-180;
+}
+.accordion-item-body {
+    @apply w-full p-4 overflow-hidden text-justify text-gray-700 transition-opacity duration-1000 ease-in-out cursor-text border-black/15;
+}
+
+/* accordion custom style end */
+
+
+
+/* accordion custom style start */
+
+
+
+/* accordion custom style end */
