@@ -116,8 +116,51 @@
 
     <hr class="my-4">
 
+
+    {{-- * dropdown component --}}
+
+    <div>
+        <button type="button" class="flex items-center gap-2 hover:bg-gray-200 p-2 rounded-lg w-fit">
+            <h1>Pabitra Das</h1>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                    <path fill-rule="evenodd"
+                        d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                        clip-rule="evenodd" />
+                </svg>
+
+            </div>
+        </button>
+        <ul class="flex flex-col space-y-2">
+            <li class="flex items-center gap-2">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                        <path
+                            d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
+                    </svg>
+                </div>
+                <span>Account</span>
+            </li>
+            <li class="flex items-center gap-2">
+                <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                        <path fill-rule="evenodd"
+                            d="M17 4.25A2.25 2.25 0 0 0 14.75 2h-5.5A2.25 2.25 0 0 0 7 4.25v2a.75.75 0 0 0 1.5 0v-2a.75.75 0 0 1 .75-.75h5.5a.75.75 0 0 1 .75.75v11.5a.75.75 0 0 1-.75.75h-5.5a.75.75 0 0 1-.75-.75v-2a.75.75 0 0 0-1.5 0v2A2.25 2.25 0 0 0 9.25 18h5.5A2.25 2.25 0 0 0 17 15.75V4.25Z"
+                            clip-rule="evenodd" />
+                        <path fill-rule="evenodd"
+                            d="M1 10a.75.75 0 0 1 .75-.75h9.546l-1.048-.943a.75.75 0 1 1 1.004-1.114l2.5 2.25a.75.75 0 0 1 0 1.114l-2.5 2.25a.75.75 0 1 1-1.004-1.114l1.048-.943H1.75A.75.75 0 0 1 1 10Z"
+                            clip-rule="evenodd" />
+                    </svg>
+
+                </div>
+                <span>Logout</span>
+            </li>
+        </ul>
+
+    </div>
+
+
     {{-- * Modal component --}}
-    <div x-data="{
+    {{-- <div x-data="{
         show: true,
     }">
         <button x-on:click="show = !show"
@@ -141,7 +184,7 @@
                     class="px-5 py-1.5  bg-blue-600 rounded-lg shadow-lg cursor-pointer hover:bg-blue-700">
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
 
