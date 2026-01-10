@@ -111,6 +111,10 @@
 
     <hr class="my-4">
 
+    <x-breadcrumb separator="/" :items="[['name' => 'Home', 'url' => '/'], ['name' => 'Library', 'url' => '/library'], ['name' => 'Data']]" />
+
+
+    <hr class="my-4">
 
     {{-- * Modal component --}}
     <div x-data="{
