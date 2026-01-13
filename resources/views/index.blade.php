@@ -103,10 +103,38 @@
     </x-dropdown>
 
 
+    <hr class="my-2">
 
-
+    <div>
+        <x-modal name="modal1">
+            <h2 class="text-xl font-bold">#1</h2>
+            <p>Greetings, one and all!</p>
+            <form method="dialog">
+                <button autofocus>OK</button>
+            </form>
+        </x-modal>
+    
+        <x-modal name="modal2">
+            <h2 class="text-xl font-bold">#2</h2>
+            <p>Greetings, one and all!</p>
+            <form method="dialog">
+                <button autofocus>OK</button>
+            </form>
+        </x-modal>
+    
+        <button type="button" x-data x-on:click="$dispatch('show-modal1')"
+            class="px-2 py-1 border hover:bg-gray-200 cursor-pointer">
+            Show Modal 1
+        </button>
+    
+        <button type="button" x-data x-on:click="$dispatch('show-modal2')"
+            class="px-2 py-1 border hover:bg-gray-200 cursor-pointer">
+            Show Modal 2
+        </button>
+    </div>
 
     <hr class="my-2">
+
     {{-- * Modal component --}}
     <h1 class="m-2 text-lg font-semibold text-center text-blue-500">Modal component</h1>
 
@@ -119,14 +147,16 @@
         </button>
 
 
-        <div x-show="open" x-transition.duration.300ms class="fixed inset-0 z-50 flex items-center justify-center size-full bg-black/50">
+        <div x-show="open" x-transition.duration.300ms
+            class="fixed inset-0 z-50 flex items-center justify-center size-full bg-black/50">
 
             {{-- method 1 --}}
             {{-- <dialog class="">
             </dialog> --}}
 
             {{-- method 2 --}}
-            <div class="p-8 overflow-x-hidden overflow-y-auto bg-gray-300 border border-gray-400 shadow-lg select-none w-md rounded-xl">
+            <div
+                class="p-8 overflow-x-hidden overflow-y-auto bg-gray-300 border border-gray-400 shadow-lg select-none w-md rounded-xl">
                 <div class="flex items-center justify-between pb-3 border-b border-gray-400">
                     <h3 class="text-lg font-medium text-gray-900">
                         Sign in to our platform
